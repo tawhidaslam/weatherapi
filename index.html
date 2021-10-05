@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input id="cityInput" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button id="weatherSearch" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="yourLocation">Dhaka</h1>
+            <h3><span id="temprature">38.06</span>&deg;C</h3>
+            <h1 id="displayWeather">Clouds</h1>
+        </div>
+    </div>
+
+
+
+    <script>
+        // fetch('')
+        const weatherSearchBtn = document.getElementById('weatherSearch');
+        // const yourLocation = document.getElementById('yourLocation');
+        const cityInput = document.getElementById('cityInput');
+        // const deg = document.getElementById('temprature');
+        // const displayWeather = document.getElementById('displayWeather').innerText;
+
+        weatherSearchBtn.addEventListener('click',function(){
+            fetch('http://api.openweathermap.org/data/2.5/weather?q='+cityInput.value+'&appid=7ed75b553b2a1ebe52e48c3db54619d3')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('yourLocation').innerText = cityInput.value;
+                const weather = data.weather[0];
+                const showWeather = weather.main;
+                const main = data.main;
+                const showTemp = main.temp;
+                // console.log(weather);
+
+                console.log(data);
+                document.getElementById('displayWeather').innerText = showWeather;
+                document.getElementById('temprature').innerText = showTemp;
+
+            })
+        });
+        
+
+
+
+
+         
+    </script>
+
+</body>
+
+</html>
